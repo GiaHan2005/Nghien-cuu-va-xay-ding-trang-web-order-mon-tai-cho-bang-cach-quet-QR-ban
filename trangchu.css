@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5f7fa;
+}
+
+.topbar {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: #fff;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #0ea5e9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar h1 {
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #e0f2fe;
+    animation: fadeInDown 0.5s ease;
+}
+
+.topbar:hover {
+    background: linear-gradient(135deg, #334155, #475569);
+}
+
+#overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    font-size: 36px;
+}
+
+.info h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.info p {
+    font-size: 15px;
+}
+
+.purple {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+.green {
+    background: linear-gradient(135deg, #00c853, #b2ff59);
+    color: #fff;
+}
+
+.orange {
+    background: linear-gradient(135deg, #ff6f00, #ff8f00);
+}
+
+.teal {
+    background: linear-gradient(135deg, #00bfa5, #1de9b6);
+}
+
+#rules {
+    margin: 50px auto;
+    max-width: 900px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#rules h2 {
+    text-align: center;
+    color: #5c4b99;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.rules-box ol {
+    padding-left: 25px;
+    color: #333;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.rules-box li::marker {
+    color: #7b68ee;
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 15px;
+    font-size: 14px;
+    color: #777;
+    border-top: 1px solid #eee;
+}

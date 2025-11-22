@@ -1,0 +1,97 @@
+body {
+    background-color: #faf8f5;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 40px;
+    text-align: center;
+}
+
+.danhsach {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 30px;
+}
+
+#loai {
+    background-color: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+    width: 220px;
+    text-align: center;
+    padding: 15px;
+    transition: all 0.25s ease;
+}
+
+#loai:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+#loai img {
+    width: 180px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+#loai div {
+    font-weight: 500;
+    color: #333;
+    font-size: 20px;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+#loai span {
+    display: block;
+    color: #111;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#loai .nut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 10px;
+}
+
+#loai .nut .chitiet button {
+    background-color: #1d84b5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#loai .nut .chitiet button:hover {
+    background-color: #166a91;
+}
+
+#loai .nut .themmon button {
+    background-color: #e63946;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#loai .nut .themmon button:hover {
+    background-color: #cc2f3b;
+}
