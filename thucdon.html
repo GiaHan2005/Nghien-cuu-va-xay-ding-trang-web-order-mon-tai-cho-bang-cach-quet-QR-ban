@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách món ăn</title>
+    <link rel="stylesheet" href="thucdon.css">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+        }
+        
+        .button {
+            margin: 10px 0;
+        }
+        
+        .button a button {
+            margin-right: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <h1 id="title">DANH SÁCH MÓN ĂN</h1>
+    </header>
+
+    <div class="button">
+        <a href="themmon.php"><button id="them">THÊM</button></a>
+        <a href="suamon.php"><button id="sua">SỬA</button></a>
+        <a href="xoamon.php"><button id="xoa">XÓA</button></a>
+    </div>
+
+    <table id="danhSachMon">
+        <thead>
+            <tr>
+                <th>ID Món</th>
+                <th>Tên Món</th>
+                <th>Tên Loại</th>
+                <th>Size</th>
+                <th>Giá</th>
+                <th>Trạng Thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="6">Đang tải dữ liệu...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // URL backend
+        const api = 'thucdon.php';
+
+        // Hàm load dữ liệu
+        async function loadDanhSach() {
+            const resp = await fetch(api);
+            const data = await resp.json();
+            const tbody = document.querySelector('#danhSachMon tbody');
+            tbody.innerHTML = '';
+
+            if (data.success && data.danhSach.length > 0) {
+                data.danhSach.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                <td>${row.idMon}</td>
+                <td>${row.TenMon}</td>
+                <td>${row.TenLoai}</td>
+                <td>${row.Size}</td>
+                <td>${row.Gia}</td>
+                <td>${row.TrangThai}</td>
+            `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="6">Không có dữ liệu</td></tr>';
+            }
+        }
+
+        // Load khi mở trang
+        loadDanhSach();
+    </script>
+</body>
+
+</html>

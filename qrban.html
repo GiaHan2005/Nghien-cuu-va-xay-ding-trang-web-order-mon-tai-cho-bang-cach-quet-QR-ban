@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý QR bàn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #fcfdff;
+            color: #222
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            text-align: center
+        }
+        
+        img.qr {
+            width: 150px;
+            height: 150px
+        }
+        
+        .actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            justify-content: center
+        }
+        
+        a.btn {
+            padding: 8px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            background: #1976d2
+        }
+        
+        button.copy {
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background: #fff;
+            cursor: pointer
+        }
+        
+        header {
+            margin-bottom: 12px
+        }
+        
+        button.saveBtn {
+            padding: 6px 8px;
+            border-radius: 6px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 6px
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Danh sách QR</h2>
+    </header>
+    <div class="grid" id="grid"></div>
+
+    <script>
+        const api = 'qrban.php';
+
+        // Lấy danh sách bàn và hiển thị
+        async function loadTables() {
+            const resp = await fetch(api);
+            const data = await resp.json();
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            if (data.success) {
+                const tables = data.tables;
+                const baseUrl = data.baseUrl;
+                tables.forEach(t => {
+                    const id = t.idBan;
+                    const ten = t.TenBan;
+                    const targetUrl = baseUrl + '?ban=' + id;
+                    const qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(targetUrl);
+
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                <h3>${ten}</h3>
+                <img class="qr" src="${qrApiUrl}" alt="QR ${ten}">
+                <div class="actions">
+                    <a class="btn" href="${qrApiUrl}" target="_blank" download="QR-${id}.png">Tải</a>
+                    <button class="copy">Copy URL</button>
+                </div>
+                <button class="saveBtn">Lưu MaQR</button>
+                <p style="font-size:13px;color:#666;margin-top:8px;"><small>Link: <a href="${targetUrl}" target="_blank">${targetUrl}</a></small></p>
+            `;
+                    grid.appendChild(card);
+
+                    // Copy URL
+                    card.querySelector('.copy').onclick = () => {
+                        navigator.clipboard.writeText(targetUrl).then(() => alert('Đã copy URL'), () => alert('Không copy được'));
+                    };
+
+                    // Lưu QR
+                    card.querySelector('.saveBtn').onclick = async() => {
+                        const formData = new FormData();
+                        formData.append('save_qr_for', id);
+                        const resp = await fetch(api, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const result = await resp.json();
+                        if (result.success) alert('Đã lưu mã QR');
+                        else alert(result.message || 'Lưu thất bại');
+                    };
+                });
+            }
+        }
+
+        // Load khi mở trang
+        loadTables();
+    </script>
+</body>
+
+</html>
