@@ -41,20 +41,42 @@
             letter-spacing: 0.5px;
         }
 
+        .btn-login {
+            margin-top: 25px;
+            padding: 12px 28px;
+            background: #4fbec1;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-login:hover {
+            background: #3aa6a9;
+            transform: scale(1.05);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
-
-    <!-- GỬI DỮ LIỆU ĐẾN LOGIN.PHP Ở INFINITYFREE -->
-    <form action="https://tiemtra.infinityfreeapp.com/login.php" method="POST">
 </head>
 
 <body>
+
 <div class="welcome-box">
     <h1>Chào mừng đến với Tiệm Trà Hadu</h1>
     <p>Nơi mang đến sự tươi mát và nhẹ nhàng từ những tách trà</p>
+
+    <a href="https://tiemtra.infinityfreeapp.com/login.php">
+        <button class="btn-login">Đăng nhập nhân viên</button>
+    </a>
 </div>
+
 </body>
 </html>
+
