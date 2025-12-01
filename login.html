@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Đăng Nhập Nhân Viên</title>
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+<meta charset="UTF-8">
+<title>Đăng Nhập Nhân Viên</title>
+<link rel="stylesheet" href="login.css">
+<script>
+async function login(event){
+    event.preventDefault();
+    const form = event.target;
+    const data = new FormData(form);
+    const resp = await fetch('login.php',{method:'POST', body:data});
+    const result = await resp.json();
+    if(result.success){
+        window.location.href = 'admin.html';
+    }else{
+        alert(result.message || 'Đăng nhập thất bại');
+    }
+}
+</script>
 </head>
-
 <body>
-
-    <div id="wrapper">
-        <form action="login.php" id="form-login" method="post">
-            <h1 class="form-heading">Đăng Nhập</h1>
-            <div class="form-group">
-                <i class="far fa-user"></i>
-                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" required>
-            </div>
-            <div class="form-group">
-                <i class="fas fa-key"></i>
-                <input type="password" class="form-input" placeholder="Mật khẩu" name="password" required>
-                <div id="mat">
-                    <i class="far fa-eye"></i>
-                </div>
-            </div>
-            <input type="submit" value="Bắt đầu làm việc" class="form-submit">
-            <a href="signup.php">Quên mật khẩu?</a>
-        </form>
-    </div>
+<div id="wrapper">
+    <form id="form-login" onsubmit="login(event)">
+        <h1 class="form-heading">Đăng Nhập</h1>
+        <div class="form-group">
+            <input type="text" placeholder="Tên đăng nhập" name="username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" placeholder="Mật khẩu" name="password" required>
+        </div>
+        <input type="submit" value="Bắt đầu làm việc">
+    </form>
+</div>
 </body>
-
-
 </html>
