@@ -1,10 +1,10 @@
 
 <?php
 class KETNOI {
-    public $host = 'localhost';
-    public $user = 'root';
-    public $pass = '';
-    public $dbname = 'tiemtra3';
+    public $host ='sql310.infinityfree.com';
+    public $user = 'if0_40548979';
+    public $pass = '0902596241';
+    public $dbname = 'if0_40548979_tiemtra';
     public $db;
 
     public function __construct() {
@@ -653,3 +653,4 @@ public function layChiTietMon($idMon) {
 
 }
 ?>
+
