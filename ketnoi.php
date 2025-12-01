@@ -1,9 +1,9 @@
 <?php
 class KETNOI {
-    public $host ='localhost';
-    public $user = 'root';
-    public $pass = '';
-    public $dbname = 'tiemtra3';
+    public $host ='sql310.infinityfree.com';
+    public $user = 'if0_40548979';
+    public $pass = '0902596241';
+    public $dbname = 'if0_40548979_tiemtra';
     private $db;
     public function __construct() {
         $this->db = new mysqli($this->host, $this->user, $this->pass, $this->dbname );
@@ -216,4 +216,5 @@ public function hienThiMonAn($idMon) {
         }
 }
 }
+
 ?>
