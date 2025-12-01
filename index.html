@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiệm Trà Hadu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #d8f7f2, #e8fffe, #f3ffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            overflow: hidden;
+        }
+
+        .welcome-box {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 40px 60px;
+            border-radius: 25px;
+            box-shadow: 0 8px 18px rgba(130, 200, 200, 0.3);
+            backdrop-filter: blur(6px);
+            animation: fadeIn 1.3s ease;
+        }
+
+        h1 {
+            color: #4fbec1;
+            font-size: 40px;
+            font-weight: 700;
+            margin: 0 0 15px;
+            text-shadow: 0 2px 4px rgba(70, 150, 150, 0.3);
+        }
+
+        p {
+            color: #3c9ea1;
+            font-size: 20px;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <!-- Tự chuyển trang sau 2 giây -->
+    <script>
+        setTimeout(function() {
+            window.location.href = "login.php";
+        }, 2000);
+    </script>
+</head>
+
+<body>
+<div class="welcome-box">
+    <h1>Chào mừng đến với Tiệm Trà Hadu</h1>
+    <p>Nơi mang đến sự tươi mát và nhẹ nhàng từ những tách trà</p>
+</div>
+</body>
+</html>
