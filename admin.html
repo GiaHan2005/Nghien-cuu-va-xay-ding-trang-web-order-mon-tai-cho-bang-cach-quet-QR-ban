@@ -1,112 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>ADMIN QUẢN LÝ TIỆM TRÀ</title>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            font-family: 'Segoe UI', sans-serif;
-            background: #f5f7fa;
-        }
-        
-        nav {
-            width: 240px;
-            background: #1e293b;
-            color: #fff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 20px 0;
-        }
-        
-        nav h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 18px;
-        }
-        
-        nav a {
-            color: #cbd5e1;
-            text-decoration: none;
-            padding: 12px 20px;
-            display: block;
-            transition: 0.2s;
-        }
-        
-        nav a:hover,
-        nav a:focus {
-            background: #475569;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-        
-        iframe {
-            flex: 1;
-            border: none;
-            height: 100vh;
-            background: white;
-        }
-        
-        .logout {
-            position: fixed;
-            bottom: 20px;
-            left: 5%
-        }
-        
-        .logout button {
-            -webkit-appearance: none;
-            appearance: none;
-            display: block;
-            width: 100%;
-            background-color: #cbd5e1;
-            color: #1e293b;
-            border: none;
-            padding: 10px 14px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            text-align: left;
-            transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
-        }
-        
-        .logout button:hover {
-            background: #b9cbe0ff;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-        }
-        
-        .ten-nv {
-            color: #cfd8dc;
-            font-size: 14px;
-            text-align: left;
-            margin-left: 15px;
-            margin-top: 4px;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Admin Quản Lý</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;padding:0;display:flex;}
+nav{width:240px;background:#1e293b;color:#fff;display:flex;flex-direction:column;height:100vh;padding:20px 0;}
+nav a{color:#cbd5e1;text-decoration:none;padding:12px 20px;display:block;}
+iframe{flex:1;border:none;height:100vh;}
+.logout{position:fixed;bottom:20px;left:5%;}
+.logout button{width:100%;padding:10px;border:none;border-radius:8px;cursor:pointer;}
+.ten-nv{color:#cfd8dc;font-size:14px;margin-left:15px;font-style:italic;}
+</style>
 </head>
-
 <body>
-    <nav>
-        <h2>TIỆM TRÀ</h2>
+<nav>
+    <h2>TIỆM TRÀ</h2>
+    <p class="ten-nv" id="nhanvien">Đang tải...</p>
+    <a href="trangchu.html" target="content-frame">Trang Chủ</a>
+    <a href="quanlyban.html" target="content-frame">Danh Sách Bàn</a>
+    <a href="thucdon.html" target="content-frame">Thực Đơn</a>
+    <a href="qrban.html" target="content-frame">QR Bàn</a>
+    <form class="logout" onsubmit="logout(event)">
+        <button type="submit">Đăng Xuất</button>
+    </form>
+</nav>
+<iframe name="content-frame" src="trangchu.html"></iframe>
 
-        <a href="trangchu.html" target="content-frame" class="active">Trang Chủ</a>
-        <a href="quanlyban.html" target="content-frame">Danh Sách Bàn</a>
-        <a href="thucdon.html" target="content-frame">Thực Đơn</a>
-        <a href="qrban.html" target="content-frame">QR Bàn</a>
-        <a href="adlogin.html" target="content-frame">Cài Đặt/Tài Khoản</a>
-        <form class="logout" method="post" action="logout.php" target="_top" onsubmit="return confirm('Bạn chắc chắn muốn đăng xuất?');">
-            <button type="submit">Đăng Xuất</button>
-        </form>
-    </nav>
+<script>
+// Lấy thông tin nhân viên
+async function checkLogin(){
+    const resp = await fetch('login.php');
+    const data = await resp.json();
+    if(data.logged_in){
+        document.getElementById('nhanvien').innerText = 'Nhân viên: '+data.HoVaten;
+    }else{
+        window.location.href = 'login.html';
+    }
+}
+checkLogin();
 
-    <iframe name="content-frame" src="trangchu.html"></iframe>
+// Logout
+async function logout(e){
+    e.preventDefault();
+    await fetch('logout.php'); // Tạo file logout.php để destroy session
+    window.location.href = 'login.html';
+}
+</script>
 </body>
-
 </html>
