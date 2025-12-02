@@ -6,11 +6,14 @@
 <style>
 body{font-family:Arial,sans-serif;margin:0;padding:0;display:flex;}
 nav{width:240px;background:#1e293b;color:#fff;display:flex;flex-direction:column;height:100vh;padding:20px 0;}
-nav a{color:#cbd5e1;text-decoration:none;padding:12px 20px;display:block;}
-iframe{flex:1;border:none;height:100vh;}
+nav a{color:#cbd5e1;text-decoration:none;padding:12px 20px;display:block;transition: 0.2s;}
+nav a:hover,nav a:focus {background: #475569;color: #fff;transform: translateY(-1px);}
+nav h2{text-align:center; margin-bottom:30px; font-size: 18px;}
+iframe{flex:1;border:none;height:100vh;background: white;}
 .logout{position:fixed;bottom:20px;left:5%;}
 .logout button{width:100%;padding:10px;border:none;border-radius:8px;cursor:pointer;}
-.ten-nv{color:#cfd8dc;font-size:14px;margin-left:15px;font-style:italic;}
+.logout button:hover {background: #b9cbe0ff;transform: translateY(-1px);box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);}
+.ten-nv {color: #cfd8dc;font-size: 14px;text-align: left;margin-left: 15px;margin-top: 4px;margin-bottom: 15px;font-style: italic;}
 </style>
 </head>
 <body>
@@ -21,6 +24,7 @@ iframe{flex:1;border:none;height:100vh;}
     <a href="quanlyban.html" target="content-frame">Danh Sách Bàn</a>
     <a href="thucdon.html" target="content-frame">Thực Đơn</a>
     <a href="qrban.html" target="content-frame">QR Bàn</a>
+    <a href="adlogin.html" target="content-frame">Cài Đặt/Tài Khoản</a>
     <form class="logout" onsubmit="logout(event)">
         <button type="submit">Đăng Xuất</button>
     </form>
@@ -49,3 +53,4 @@ async function logout(e){
 </script>
 </body>
 </html>
+
