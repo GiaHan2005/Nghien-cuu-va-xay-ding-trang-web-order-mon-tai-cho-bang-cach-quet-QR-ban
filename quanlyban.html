@@ -33,132 +33,27 @@
     </div>
 
     <script>
-        const api = 'quanlyban.php';
+        const API = "https://tiemtra.infinityfreeapp.com/quanlyban.php";
 
-        let currentTableId = null;
-
-        // Lấy danh sách bàn theo filter
-        async function loadTables() {
-            const filter = document.getElementById('filter').value;
-            const resp = await fetch(`${api}?filter=${filter}`);
-            const data = await resp.json();
-            if (data.success) {
-                const grid = document.getElementById('tableGrid');
-                grid.innerHTML = '';
-                for (const id in data.tables) {
-                    const t = data.tables[id];
-                    const btn = document.createElement('button');
-                    btn.className = t.reserved ? 'reserved' : 'available';
-                    btn.innerHTML = `${t.TenBan}<br><small>${t.reserved ? 'Đang có khách' : 'Trống'}</small>`;
-                    btn.onclick = () => selectTable(t.id);
-                    grid.appendChild(btn);
-                }
-            }
+        function loadTables() {
+            fetch(API)
+            .then(res => res.json())
+            .then(data => {
+                let html = "";
+                Object.values(data.tables).forEach(t => {
+                    html += `
+                        <button class="${t.reserved == 1 ? 'reserved' : 'available'}"
+                                onclick="selectTable(${t.id})">
+                            Bàn ${t.id}
+                        </button>
+                    `;
+                });
+                document.getElementById("tableGrid").innerHTML = html;
+            })
         }
-
-        // Chọn bàn
-        async function selectTable(id) {
-            currentTableId = id;
-            const formData = new FormData();
-            formData.append('action', 'select_table');
-            formData.append('table_id', id);
-            const resp = await fetch(api, {
-                method: 'POST',
-                body: formData
-            });
-            const data = await resp.json();
-            if (data.success) {
-                renderTableInfo(data.table, data.orders);
-            }
-        }
-
-        // Render chi tiết bàn
-        function renderTableInfo(table, orders) {
-            const div = document.getElementById('tableInfo');
-            let html = `<strong>${table.TenBan}</strong><hr>
-    <label>Trạng thái:
-      <select id="status">
-        <option value="available"${!table.reserved?' selected':''}>Trống</option>
-        <option value="reserved"${table.reserved?' selected':''}>Đã có khách</option>
-      </select>
-    </label><br>
-    <label>Ghi chú:
-      <input id="note" value="${table.note||''}">
-    </label><hr>
-    <h4>Khách đặt món:</h4>`;
-            if (orders.length) {
-                let total = 0;
-                html += `<table class="orders-table"><thead><tr><th>Tên món</th><th>SL</th><th>Ghi chú</th><th>Giá</th></tr></thead><tbody>`;
-                for (const o of orders) {
-                    total += parseInt(o.ThanhTien);
-                    html += `<tr>
-                <td>${o.TenMon}</td>
-                <td>${o.SoLuong}</td>
-                <td>${o.GhiChuCT || o.GhiChuDon || ''}</td>
-                <td>${parseInt(o.ThanhTien).toLocaleString()}đ</td>
-            </tr>`;
-                }
-                html += `<tr><td colspan="3"><strong>Tổng cộng:</strong></td><td><strong>${total.toLocaleString()}đ</strong></td></tr>`;
-                html += `</tbody></table>`;
-            } else {
-                html += `<p><i>Chưa có khách đặt món cho bàn này.</i></p>`;
-            }
-            html += `<button onclick="saveTable()">Lưu</button> 
-             <button onclick="completeTable()">Hoàn thành</button>`;
-            div.innerHTML = html;
-        }
-
-        // Lưu bàn
-        async function saveTable() {
-            if (!currentTableId) return;
-            const formData = new FormData();
-            formData.append('action', 'save_table');
-            formData.append('table_id', currentTableId);
-            formData.append('status', document.getElementById('status').value);
-            formData.append('table_note', document.getElementById('note').value);
-            await fetch(api, {
-                method: 'POST',
-                body: formData
-            });
-            loadTables();
-        }
-
-        // Hoàn thành bàn
-        async function completeTable() {
-            if (!currentTableId) return;
-            if (!confirm('Xác nhận hoàn thành và xóa đơn hàng của bàn này?')) return;
-            const formData = new FormData();
-            formData.append('action', 'complete');
-            formData.append('table_id', currentTableId);
-            await fetch(api, {
-                method: 'POST',
-                body: formData
-            });
-            currentTableId = null;
-            document.getElementById('tableInfo').innerHTML = 'Chọn bàn để xem chi tiết.';
-            loadTables();
-        }
-
-        // Reset tất cả bàn
-        document.getElementById('resetAll').onclick = async() => {
-            if (!confirm('Bạn có chắc muốn RESET tất cả?')) return;
-            const formData = new FormData();
-            formData.append('action', 'reset_all');
-            await fetch(api, {
-                method: 'POST',
-                body: formData
-            });
-            currentTableId = null;
-            document.getElementById('tableInfo').innerHTML = 'Chọn bàn để xem chi tiết.';
-            loadTables();
-        }
-
-        // Filter onchange
-        document.getElementById('filter').onchange = loadTables;
-
-        // Load ban đầu
         loadTables();
     </script>
 </body>
+
 
 </html>
